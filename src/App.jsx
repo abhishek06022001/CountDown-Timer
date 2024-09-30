@@ -19,21 +19,14 @@ function App() {
       setHours(''); setMinutes(''), setSeconds(''); clearInterval(myinterval); setMyinterval(null); setStart(false); setPause(false); setReset(false);
     }
   }, [time])
-
   useEffect(() => {
-    let h = hours, m = minutes, s = seconds;
-    if (h === '') {
-      h = 0;
-    }
-    if (m === '') {
-      m = 0;
-    }
-    if (s === '') {
-      s = 0;
-    }
-    let time = (h*3600) + (m*60) + (s);
-    console.log("time is", time, h , m , s);
-    
+    let h = parseInt(hours) || 0; 
+    let m = parseInt(minutes) || 0; 
+    let s = parseInt(seconds) || 0;
+    let time = 0;
+    time += (h * 3600);
+    time += (m * 60);
+    time += (s);
     setTime(time);
     if (start) {
       let id = setInterval(() => {
@@ -55,15 +48,15 @@ function App() {
     <>
       <div className='font-semibold text-4xl' >CountDown Timer</div>
       <div className='pl-6' >
-        <input type="text" name="hour" id="hour" value={hours} onChange={(e) => setHours(e.target.value)}
+        <input type="number" name="hour" id="hour" value={hours} onChange={(e) => setHours(e.target.value)}
           placeholder='HH'
           className=' border-black border-2 w-10' />
         <span className='m-3 font-semibold  text-2xl'>:</span>
-        <input type="text" name="minute" id="minute" value={minutes} onChange={(e) => setMinutes(e.target.value)}
+        <input type="number" name="minute" id="minute" value={minutes} onChange={(e) => setMinutes(e.target.value)}
           placeholder='MM'
           className=' border-black border-2 w-10' />
         <span className='m-3 font-semibold  text-2xl'>:</span>
-        <input type="text" name="second" id="second" value={seconds} onChange={(e) => setSeconds(e.target.value)}
+        <input type="number" name="second" id="second" value={seconds} onChange={(e) => setSeconds(e.target.value)}
           placeholder='SS'
           className=' border-black border-2 w-10' />
         {!start ?
